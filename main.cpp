@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
-
+#define enemy_count 30
 int main()
 {
     // Create the main window
@@ -13,17 +13,17 @@ int main()
         if (!texture.loadFromFile("enemy.png")||!vazir_font.loadFromFile("Vazir.ttf"))
             return -1;
 
-        sf::Sprite sprite[24];
-        for(int n=0;n<24;n++){
+        sf::Sprite sprite[enemy_count];
+        for(int n=0;n<enemy_count;n++){
         sprite[n].setTexture(texture);
           int i,j;
-if (0<=n&&n<=7)
+if (0<=n&&n<=enemy_count/3-1)
     j=20;
-if (8<=n&&n<=15)
+if (enemy_count/3<=n&&n<=2*enemy_count/3-1)
     j=20+64+28*2;
-if (16<=n&&n<=23)
+if (2*enemy_count/3<=n&&n<=enemy_count-1)
     j=20+64+28*2+64+28*2;
-i=(n%8)*64+28*2;
+i=25+(n%10)*64+28*2;
 sprite[n].setPosition(i,j);
         }
         score.setFont(vazir_font);
@@ -59,7 +59,7 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 score.setString("salam");
         window.clear();
 // Draw the textured sprite
-for (int i=0;i<24;i++)
+for (int i=0;i<enemy_count;i++)
         window.draw(sprite[i]);
         window.draw(score);
         window.display();
