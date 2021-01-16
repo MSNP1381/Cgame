@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1610640383 source:/home/msnp1381/Desktop/Cgame/main.cpp
+1610805753 source:/home/msnp1381/Desktop/Cgame/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1610812936 source:/home/ali208040i/CGame/Cgame/main.cpp
+1610814761 source:/home/ali208040i/CGame/Cgame/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 
