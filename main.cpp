@@ -10,9 +10,11 @@ int main()
 
 
             sf::Texture texture;
-        if (!texture.loadFromFile("enemy.png")||!vazir_font.loadFromFile("Vazir.ttf"))
+            sf::Texture textureMyShip;
+        if (!texture.loadFromFile("enemy.png")||!vazir_font.loadFromFile("Vazir.ttf")||!textureMyShip.loadFromFile("images/small_ship_resized.png"))
             return -1;
-
+        sf::Sprite spriteMyShip(textureMyShip);
+        spriteMyShip.setPosition(375,500);
         sf::Sprite sprite[enemy_count];
         for(int n=0;n<enemy_count;n++){
         sprite[n].setTexture(texture);
@@ -48,12 +50,12 @@ sprite[n].setPosition(i,j);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 {
     // left key is pressed: move our character
-   // sprite.move(-1.f, 0.f);
+    spriteMyShip.move(-.3f, 0.f);
 }
 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 {
     // left key is pressed: move our character
-//    sprite.move(+1.f, 0.f);
+    spriteMyShip.move(+.3f, 0.f);
 }
 
 score.setString("salam");
@@ -61,6 +63,7 @@ score.setString("salam");
 // Draw the textured sprite
 for (int i=0;i<enemy_count;i++)
         window.draw(sprite[i]);
+        window.draw(spriteMyShip);
         window.draw(score);
         window.display();
     }
