@@ -5,7 +5,7 @@
 #define left_boundary 25
 #define top_boundary 20
 #define ship_movment_speed .3f
-#define enemy_movment_speed 1.f
+#define enemy_movment_speed .12f
 #define enemy_width 64
 #define enemy_layout_boundary 28
 
