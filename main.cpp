@@ -11,10 +11,23 @@ int allive_bullet = 0 ;
 #define enemy_movment_speed .12f
 #define enemy_width 64
 #define enemy_layout_boundary 28
-
 short ship_direction=1;
 
+class bullet {
+    public:
+    int allive = 1 ;
+    sf::Texture bullet_texture;
+    sf::Sprite bullet_sprite;
+    sf::Vector2f position ;
 
+    bullet (sf::Texture texture , sf::Vector2f Ship_pos){
+        bullet_texture = texture;
+        position = Ship_pos;
+        bullet_sprite.setTexture(bullet_texture);
+        bullet_sprite.setPosition(position);
+    }
+
+};
 void move_enemies(sf::Sprite s[enemy_count])
 {
     //int x=-1;
@@ -89,7 +102,7 @@ int main()
     //from here set the bullet position
     sf::Vector2f position_MyShip = spriteMyShip.getPosition();
     bullet.setPosition(position_MyShip);
-    sf::Vector2f position_MyBullet = bullet.getPosition();
+    //sf::Vector2f position_MyBullet = bullet.getPosition();
     //std::cout<<bullet.getPosition().x<<bullet.getPosition().y<<"\n";
     // up here .
 
@@ -115,6 +128,7 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
             allive_bullet = 1 ;
+            //bullet bullet1( bullet_texture, position_MyShip);
         }
         score.setString("salam");
         window.clear();
