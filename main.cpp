@@ -86,7 +86,13 @@ int main()
     //sprite.setTexture(texture);
     // Start the game loop
 
-    build_bullet(spriteMyShip, bullet, empty_temp);
+    //from here set the bullet position
+    sf::Vector2f position_MyShip = spriteMyShip.getPosition();
+    bullet.setPosition(position_MyShip);
+    sf::Vector2f position_MyBullet = bullet.getPosition();
+    //std::cout<<bullet.getPosition().x<<bullet.getPosition().y<<"\n";
+    // up here .
+
     while (window.isOpen())
     {
 
@@ -96,7 +102,6 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
             // left key is pressed: move our character
@@ -115,8 +120,8 @@ int main()
         window.clear();
         if (allive_bullet == 1)
         {
-            bullet.move(0.f, -.1f);
             window.draw(bullet);
+            bullet.move(0.f, -.1f);
         }
         move_enemies(sprite);
 // Draw the textured sprite
@@ -128,12 +133,11 @@ int main()
     }
     return EXIT_SUCCESS;
 }
-sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp)
-{
-    sf::Vector2f position_MyShip = MyShip.getPosition();
-    std::cout<<position_MyShip.x<<position_MyShip.y<<"\n";
-    bullet.setPosition(position_MyShip.x, position_MyShip.y);
-    if(allive_bullet == 1)
-        return bullet;
-    return empty_temp;
-}
+//sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp)
+//{
+//  sf::Vector2f position_MyShip = MyShip.getPosition();
+//  bullet.setPosition(position_MyShip);
+//  sf::Vector2f position_MyBullet = bullet.getPosition();
+//  std::cout<<position_MyBullet.x<<position_MyBullet.y<<"\n";
+//  return bullet;
+//}
