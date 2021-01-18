@@ -12,9 +12,22 @@ int allive_bullet = 0 ;
 #define enemy_width 64
 #define enemy_height 192
 #define enemy_layout_boundary 28
-
 short ship_direction=1;
 
+class bullet {
+    public:
+    int allive = 1 ;
+    sf::Texture bullet_texture;
+    sf::Sprite bullet_sprite;
+    sf::Vector2f position ;
+
+    bullet (sf::Texture texture , sf::Vector2f Ship_pos){
+        bullet_texture = texture;
+        position = Ship_pos;
+        bullet_sprite.setTexture(bullet_texture);
+        bullet_sprite.setPosition(position);
+    }
+};
 
 void bullet_explode(sf::Sprite sp[enemy_count],int bullet_is_alive,sf::Sprite bullet,bool EnemyIsAlive[enemy_count])
 {
@@ -111,7 +124,13 @@ int main()
     //sprite.setTexture(texture);
     // Start the game loop
 
-    build_bullet(spriteMyShip, bullet, empty_temp);
+    //from here set the bullet position
+    sf::Vector2f position_MyShip = spriteMyShip.getPosition();
+    bullet.setPosition(position_MyShip);
+    //sf::Vector2f position_MyBullet = bullet.getPosition();
+    //std::cout<<bullet.getPosition().x<<bullet.getPosition().y<<"\n";
+    // up here .
+
     while (window.isOpen())
     {
 
@@ -121,7 +140,6 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
             // left key is pressed: move our character
@@ -135,13 +153,14 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
             allive_bullet = 1 ;
+            //bullet bullet1( bullet_texture, position_MyShip);
         }
         score.setString("salam");
         window.clear();
         if (allive_bullet == 1)
         {
-            bullet.move(0.f, -.1f);
             window.draw(bullet);
+            bullet.move(0.f, -.1f);
         }
         move_enemies(sprite);
 // Draw the textured sprite
@@ -153,16 +172,11 @@ int main()
     }
     return EXIT_SUCCESS;
 }
-sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp)
-{
-
-
-
-
-    sf::Vector2f position_MyShip = MyShip.getPosition();
-    std::cout<<position_MyShip.x<<position_MyShip.y<<"\n";
-    bullet.setPosition(position_MyShip.x, position_MyShip.y);
-    if(allive_bullet == 1)
-        return bullet;
-    return empty_temp;
-}
+//sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp)
+//{
+//  sf::Vector2f position_MyShip = MyShip.getPosition();
+//  bullet.setPosition(position_MyShip);
+//  sf::Vector2f position_MyBullet = bullet.getPosition();
+//  std::cout<<position_MyBullet.x<<position_MyBullet.y<<"\n";
+//  return bullet;
+//}
