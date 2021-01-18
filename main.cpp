@@ -10,6 +10,7 @@ int allive_bullet = 0 ;
 #define ship_movment_speed .3f
 #define enemy_movment_speed .12f
 #define enemy_width 64
+#define enemy_height 192
 #define enemy_layout_boundary 28
 short ship_direction=1;
 
@@ -26,8 +27,31 @@ class bullet {
         bullet_sprite.setTexture(bullet_texture);
         bullet_sprite.setPosition(position);
     }
-
 };
+
+void bullet_explode(sf::Sprite sp[enemy_count],int bullet_is_alive,sf::Sprite bullet,bool EnemyIsAlive[enemy_count])
+{
+    float bulletX=bullet.getPosition().x;
+    float bulletY=bullet.getPosition().y;
+    if(bullet_is_alive==1)
+    {
+        for (int i=0; i<enemy_count; i++)
+        {
+            float EnemyX=sp[i].getPosition().x;
+            float EnemyY=sp[i].getPosition().y;
+            if(EnemyIsAlive[i]&&(bulletX>EnemyX&&bulletX<EnemyX+enemy_width)&&(bulletY>EnemyY&&bulletY<EnemyY+enemy_height))
+            {
+                EnemyIsAlive[i]=false;
+                bullet_is_alive=0;
+                sp[i].setColor(sf::Color.Black);
+            }
+        }
+
+    }
+
+
+}
+
 void move_enemies(sf::Sprite s[enemy_count])
 {
     //int x=-1;
@@ -78,6 +102,7 @@ int main()
     spriteMyShip.setPosition(375,500);
     spriteMyShip.setOrigin(21.60,0);
     sf::Sprite sprite[enemy_count];
+    bool Enemy_is_alive[enemy_count]= {true};
     for(int n=0; n<enemy_count; n++)
     {
         sprite[n].setTexture(texture);
