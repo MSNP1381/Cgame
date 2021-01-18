@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
-#define enemy_count 30
+#include<ctime>
 sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp);
 void fire(sf::Sprite bullet);
 int allive_bullet = 0 ;
+#define enemy_count 30
 #define right_boundary 800-25-63
 #define left_boundary 25
 #define top_boundary 20
@@ -12,9 +13,10 @@ int allive_bullet = 0 ;
 #define enemy_width 64
 #define enemy_height 192
 #define enemy_layout_boundary 28
+#define bullet_height
 short ship_direction=1;
 
-class bullet {
+class bullet_Class {
     public:
     int allive = 1 ;
     sf::Texture bullet_texture;
@@ -29,21 +31,22 @@ class bullet {
     }
 };
 
-void bullet_explode(sf::Sprite sp[enemy_count],int bullet_is_alive,sf::Sprite bullet,bool EnemyIsAlive[enemy_count])
+void bullet_explode(sf::Sprite sp[enemy_count],int bullet_is_alive,sf::Sprite bullet_in,bool EnemyIsAlive[enemy_count])
 {
-    float bulletX=bullet.getPosition().x;
-    float bulletY=bullet.getPosition().y;
+    float bulletX=bullet_in.getPosition().x;
+    float bulletY=bullet_in.getPosition().y;
     if(bullet_is_alive==1)
     {
         for (int i=0; i<enemy_count; i++)
         {
             float EnemyX=sp[i].getPosition().x;
             float EnemyY=sp[i].getPosition().y;
-            if(EnemyIsAlive[i]&&(bulletX>EnemyX&&bulletX<EnemyX+enemy_width)&&(bulletY>EnemyY&&bulletY<EnemyY+enemy_height))
+            if(bulletY>(600+76)||bEnemyIsAlive[i]&&(bulletX>EnemyX&&bulletX<EnemyX+enemy_width)&&(bulletY>EnemyY&&bulletY<EnemyY+enemy_height))
             {
                 EnemyIsAlive[i]=false;
                 bullet_is_alive=0;
                 sp[i].setColor(sf::Color.Black);
+
             }
         }
 
@@ -123,7 +126,7 @@ int main()
 
     //sprite.setTexture(texture);
     // Start the game loop
-
+bullet.
     //from here set the bullet position
     sf::Vector2f position_MyShip = spriteMyShip.getPosition();
     bullet.setPosition(position_MyShip);
@@ -153,7 +156,7 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
             allive_bullet = 1 ;
-            //bullet bullet1( bullet_texture, position_MyShip);
+
         }
         score.setString("salam");
         window.clear();
