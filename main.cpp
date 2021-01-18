@@ -11,10 +11,32 @@ int allive_bullet = 0 ;
 #define enemy_movment_speed .12f
 #define enemy_width 64
 #define enemy_layout_boundary 28
+short ship_direction = 1;
 
-short ship_direction=1;
+class bullet_class
+{
+public:
+    int allive = 0 ;
+    sf::Texture bullet_texture;
+    sf::Sprite bullet_sprite;
+    sf::Vector2f position ;
 
-
+    bullet_class (sf::Texture texture, sf::Vector2f Ship_pos)
+    {
+        bullet_texture = texture;
+        position = Ship_pos;
+        bullet_sprite.setTexture(bullet_texture);
+        bullet_sprite.setPosition(position);
+    }
+    void move_bullet(float x)
+    {
+        bullet_sprite.move(0.f, -x);
+    }
+    void get_pos(sf::Vector2f posShipNew)
+    {
+        bullet_sprite.setPosition(posShipNew);
+    }
+};
 void move_enemies(sf::Sprite s[enemy_count])
 {
     //int x=-1;
@@ -55,8 +77,7 @@ int main()
     sf::Texture bullet_texture ;
     if(!bullet_texture.loadFromFile("images/bullet_main_3.png"))
         printf("we don't have bullets !");
-    sf::Sprite bullet(bullet_texture);
-    sf::Sprite empty_temp ;
+    //sf::Sprite bullet(bullet_texture);
     sf::Texture texture;
     sf::Texture textureMyShip;
     if (!texture.loadFromFile("enemy.png")||!vazir_font.loadFromFile("Vazir.ttf")||!textureMyShip.loadFromFile("images/small_ship_resized.png"))
@@ -65,7 +86,7 @@ int main()
     spriteMyShip.setPosition(375,500);
     spriteMyShip.setOrigin(21.60,0);
     sf::Sprite sprite[enemy_count];
-    for(int n=0; n<enemy_count; n++)
+    for(int n = 0 ; n < enemy_count; n++)
     {
         sprite[n].setTexture(texture);
         int i,j;
@@ -86,17 +107,42 @@ int main()
     //sprite.setTexture(texture);
     // Start the game loop
 
-    build_bullet(spriteMyShip, bullet, empty_temp);
+    //from here set the bullet position
+    sf::Vector2f position_MyShip = spriteMyShip.getPosition();
+    //bullet.setPosition(position_MyShip);
+    //sf::Vector2f position_MyBullet = bullet.getPosition();
+    //std::cout<<bullet.getPosition().x<<bullet.getPosition().y<<"\n";
+    // up here .
+    bullet_class bullet1(bullet_texture, position_MyShip);
+    bullet_class bullet2(bullet_texture, position_MyShip);
+    bullet_class bullet3(bullet_texture, position_MyShip);
     while (window.isOpen())
     {
 
+        //receive new pos
+        sf::Vector2f position_MyShip = spriteMyShip.getPosition();
+        if (bullet1.allive == 0)
+        {
+            bullet1.get_pos(position_MyShip);
+        }
+        if (bullet2.allive == 0)
+        {
+            bullet2.get_pos(position_MyShip);
+        }
+        if (bullet3.allive == 0)
+        {
+            bullet3.get_pos(position_MyShip);
+        }
+
+
+
+        //clos window
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
             // left key is pressed: move our character
@@ -107,17 +153,49 @@ int main()
             // left key is pressed: move our character
             spriteMyShip.move(+.3f, 0.f);
         }
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-            allive_bullet = 1 ;
+            if (bullet1.allive == 0)
+            {
+                bullet1.allive = 1 ;
+            }
+            else if (bullet2.allive == 0)
+            {
+                bullet2.allive = 1 ;
+            }
+            else if (bullet3.allive == 0)
+            {
+                bullet3.allive = 1 ;
+            }
+            //allive_bullet = 1 ;
+            //bullet bullet1( bullet_texture, position_MyShip);
         }
         score.setString("salam");
         window.clear();
-        if (allive_bullet == 1)
+
+        if (bullet1.allive == 1)
         {
-            bullet.move(0.f, -.1f);
-            window.draw(bullet);
+            window.draw(bullet1.bullet_sprite);
+            bullet1.move_bullet(.1f);
         }
+        if (bullet2.allive == 1)
+        {
+            window.draw(bullet2.bullet_sprite);
+            std::cout<<"hello !";
+            bullet2.move_bullet(.2f);
+        }
+        if (bullet3.allive == 1)
+        {
+            window.draw(bullet3.bullet_sprite);
+            bullet3.move_bullet(.3f);
+        }
+
+        //if (allive_bullet == 1)
+        //{
+        //  window.draw(bullet);
+        //  bullet.move(0.f, -.1f);
+        //}
         move_enemies(sprite);
 // Draw the textured sprite
         for (int i=0; i<enemy_count; i++)
@@ -128,12 +206,11 @@ int main()
     }
     return EXIT_SUCCESS;
 }
-sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp)
-{
-    sf::Vector2f position_MyShip = MyShip.getPosition();
-    std::cout<<position_MyShip.x<<position_MyShip.y<<"\n";
-    bullet.setPosition(position_MyShip.x, position_MyShip.y);
-    if(allive_bullet == 1)
-        return bullet;
-    return empty_temp;
-}
+//sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp)
+//{
+//  sf::Vector2f position_MyShip = MyShip.getPosition();
+//  bullet.setPosition(position_MyShip);
+//  sf::Vector2f position_MyBullet = bullet.getPosition();
+//  std::cout<<position_MyBullet.x<<position_MyBullet.y<<"\n";
+//  return bullet;
+//}
