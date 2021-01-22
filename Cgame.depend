@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1610805753 source:/home/msnp1381/Desktop/Cgame/main.cpp
+1611312679 source:/home/msnp1381/Desktop/Cgame/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
+	<chrono>
 
 1610805753 D
 
@@ -10,6 +11,10 @@
 	<iostream>
 
 1610883016 dd7427fc94965b8cb7b2d73c64476629bf5e0
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1610986076 source:/home/msnp1381/Desktop/ce/Cgame/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 
