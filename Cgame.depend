@@ -5,9 +5,12 @@
 
 1610805753 D
 
-1610985200 source:/home/ali208040i/CGame/Cgame/main.cpp
+1611314007 source:/home/ali208040i/CGame/Cgame/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
+	<stdlib.h>
+	<time.h>
+	<stdio.h>
 
 1610883016 dd7427fc94965b8cb7b2d73c64476629bf5e0
 	<SFML/Graphics.hpp>
