@@ -1,12 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
+#include<ctime>
 #include<stdlib.h>
 #include<time.h>
 #include<stdio.h>
 #define enemy_count 30
+
 sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp);
 void fire(sf::Sprite bullet);
 int allive_bullet = 0 ;
+#define enemy_count 30
 #define right_boundary 800-25-63
 #define left_boundary 25
 #define top_boundary 20
@@ -42,17 +45,17 @@ public:
     }
 };
 
-void bullet_explode(sf::Sprite sp[enemy_count],int bullet_is_alive,sf::Sprite bullet,bool EnemyIsAlive[enemy_count])
+void bullet_explode(sf::Sprite sp[enemy_count],int bullet_is_alive,sf::Sprite bullet_in,bool EnemyIsAlive[enemy_count])
 {
-    float bulletX=bullet.getPosition().x;
-    float bulletY=bullet.getPosition().y;
+    float bulletX=bullet_in.getPosition().x;
+    float bulletY=bullet_in.getPosition().y;
     if(bullet_is_alive==1)
     {
         for (int i=0; i<enemy_count; i++)
         {
             float EnemyX=sp[i].getPosition().x;
             float EnemyY=sp[i].getPosition().y;
-            if(EnemyIsAlive[i]&&(bulletX>EnemyX&&bulletX<EnemyX+enemy_width)&&(bulletY>EnemyY&&bulletY<EnemyY+enemy_height))
+            if(bulletY>(600+76)||bEnemyIsAlive[i]&&(bulletX>EnemyX&&bulletX<EnemyX+enemy_width)&&(bulletY>EnemyY&&bulletY<EnemyY+enemy_height))
             {
                 EnemyIsAlive[i]=false;
                 bullet_is_alive=0;
@@ -136,7 +139,6 @@ int main()
 
     //sprite.setTexture(texture);
     // Start the game loop
-
     //from here set the bullet position
     sf::Vector2f position_MyShip = spriteMyShip.getPosition();
     //bullet.setPosition(position_MyShip);
