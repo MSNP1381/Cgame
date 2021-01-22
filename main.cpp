@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
+
 #include<iostream>
+#include<chrono>
+#define delay_time 700
 #include<ctime>
 #include<stdlib.h>
 #include<time.h>
@@ -19,6 +22,9 @@ int allive_bullet = 0 ;
 #define enemy_height 192
 #define enemy_layout_boundary 28
 short ship_direction = 1;
+
+
+bool is_pressed=false;
 
 class bullet_class
 {
@@ -99,16 +105,30 @@ void move_enemies(sf::Sprite s[enemy_count])
         //std::cout<<"direction : "<<ship_direction<<std::endl;
     }
 }
+
+/*char title_init (bool enemy_is_alive[enemy_count],int bullet_count)
+{
+    int enemy_score=0;
+    for(int i =0;i<enemy_count;i++)
+        if (!enemy_is_alive[enemy_count])
+        enemy_score++;
+    char c[800/15];
+    char scrtmp[]="Score : "
+    char reloading="Reloading"
+ char c=("%s",scrtmp);
+}*/
+
 int main()
 {
     srand(time(NULL));
     // Create the main window
+
     sf::RenderWindow window(sf::VideoMode(800,600),"my window");
     sf::Font vazir_font;
     sf::Text score;
     sf::Texture bullet_texture , bullet_texture_enemy;
     if(!bullet_texture.loadFromFile("images/bullet_main_3.png") || !bullet_texture_enemy.loadFromFile("images/bullet_main_3_enemy.png"))
-        printf("we don't have bullets !");
+        return -1;
     //sf::Sprite bullet(bullet_texture);
     sf::Texture texture;
     sf::Texture textureMyShip;
@@ -134,9 +154,6 @@ int main()
     }
     score.setFont(vazir_font);
     score.setCharacterSize(15);
-
-
-
     //sprite.setTexture(texture);
     // Start the game loop
     //from here set the bullet position
@@ -166,6 +183,11 @@ int main()
     bullet_class bullet1(bullet_texture, position_MyShip);
     bullet_class bullet2(bullet_texture, position_MyShip);
     bullet_class bullet3(bullet_texture, position_MyShip);
+
+    auto time_tmp=std::chrono::_V2::high_resolution_clock::now();
+    auto time_now=std::chrono::_V2::high_resolution_clock::now();
+
+
     while (window.isOpen())
     {
         // bullet enemy receive pos
@@ -224,16 +246,14 @@ int main()
         {
             bullet3.get_pos(position_MyShip);
         }
-
-        //clos window
+        //close window
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
-
+        time_now=std::chrono::_V2::high_resolution_clock::now();
         //front
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
@@ -248,20 +268,29 @@ int main()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-            if (bullet1.allive == 0)
+            if (!is_pressed)
             {
-                bullet1.allive = 1 ;
+                is_pressed=true;
+                time_tmp=std::chrono::_V2::high_resolution_clock::now();
+
+                if (bullet1.allive == 0)
+                {
+                    bullet1.allive = 1 ;
+                }
+                else if (bullet2.allive == 0)
+                {
+                    bullet2.allive = 1 ;
+                }
+                else if (bullet3.allive == 0)
+                {
+                    bullet3.allive = 1 ;
+                }
             }
-            else if (bullet2.allive == 0)
+            else if (is_pressed&&(std::chrono::duration<double,std::milli>(time_now-time_tmp).count()>=delay_time))
             {
-                bullet2.allive = 1 ;
+                is_pressed=false;
+
             }
-            else if (bullet3.allive == 0)
-            {
-                bullet3.allive = 1 ;
-            }
-            //allive_bullet = 1 ;
-            //bullet bullet1( bullet_texture, position_MyShip);
         }
         //creating enemy bullet
         bulletEnemy1.allive = 1;
@@ -344,11 +373,6 @@ int main()
             bullet3.move_bullet(.3f);
         }
 
-        //if (allive_bullet == 1)
-        //{
-        //  window.draw(bullet);
-        //  bullet.move(0.f, -.1f);
-        //}
         move_enemies(sprite);
         // Draw the textured sprite
         for (int i=0; i<enemy_count; i++)
