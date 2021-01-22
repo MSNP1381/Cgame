@@ -55,7 +55,7 @@ void bullet_explode(sf::Sprite sp[enemy_count],int bullet_is_alive,sf::Sprite bu
         {
             float EnemyX=sp[i].getPosition().x;
             float EnemyY=sp[i].getPosition().y;
-            if(bulletY>(600+76)||bEnemyIsAlive[i]&&(bulletX>EnemyX&&bulletX<EnemyX+enemy_width)&&(bulletY>EnemyY&&bulletY<EnemyY+enemy_height))
+            if(bulletY>(600+76)||EnemyIsAlive[i]&&(bulletX>EnemyX&&bulletX<EnemyX+enemy_width)&&(bulletY>EnemyY&&bulletY<EnemyY+enemy_height))
             {
                 EnemyIsAlive[i]=false;
                 bullet_is_alive=0;
