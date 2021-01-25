@@ -126,7 +126,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800,600),"my window");
     sf::Font vazir_font;
     sf::Text score;
-    sf::Texture bullet_texture , bullet_texture_enemy;
+    sf::Texture bullet_texture, bullet_texture_enemy;
     if(!bullet_texture.loadFromFile("images/bullet_main_3.png") || !bullet_texture_enemy.loadFromFile("images/bullet_main_3_enemy.png"))
         return -1;
     //sf::Sprite bullet(bullet_texture);
@@ -169,22 +169,23 @@ int main()
     //bullet create
 
     //bullet enemy
-    bullet_class bulletEnemy1(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy2(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy3(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy4(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy5(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy6(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy7(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy8(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy9(bullet_texture_enemy , sprite[rand()%30].getPosition());
-    bullet_class bulletEnemy10(bullet_texture_enemy , sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy1(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy2(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy3(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy4(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy5(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy6(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy7(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy8(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy9(bullet_texture_enemy, sprite[rand()%30].getPosition());
+    bullet_class bulletEnemy10(bullet_texture_enemy, sprite[rand()%30].getPosition());
     //bullet MyShip
     bullet_class bullet1(bullet_texture, position_MyShip);
     bullet_class bullet2(bullet_texture, position_MyShip);
     bullet_class bullet3(bullet_texture, position_MyShip);
 
     auto time_tmp=std::chrono::_V2::high_resolution_clock::now();
+    auto time_tmp1=std::chrono::_V2::high_resolution_clock::now();
     auto time_now=std::chrono::_V2::high_resolution_clock::now();
 
 
@@ -307,56 +308,72 @@ int main()
         score.setString("salam");
         window.clear();
 
+        time_now=std::chrono::_V2::high_resolution_clock::now();
         //draw enemy bullet
-        if (bulletEnemy1.allive == 1)
+        if (bulletEnemy1.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
             window.draw(bulletEnemy1.bullet_sprite);
             bulletEnemy1.move_bullet(-.1f);
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
         }
-        if (bulletEnemy2.allive == 1)
+        if (bulletEnemy2.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
             window.draw(bulletEnemy2.bullet_sprite);
             bulletEnemy2.move_bullet(-.2f);
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
         }
-        if (bulletEnemy3.allive == 1)
+        if (bulletEnemy3.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
             window.draw(bulletEnemy3.bullet_sprite);
             bulletEnemy3.move_bullet(-.3f);
-        }if (bulletEnemy4.allive == 1)
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy4.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy4.bullet_sprite);
             bulletEnemy4.move_bullet(-.1f);
         }
-        if (bulletEnemy5.allive == 1)
+        if (bulletEnemy5.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy5.bullet_sprite);
             bulletEnemy5.move_bullet(-.2f);
         }
-        if (bulletEnemy6.allive == 1)
+        if (bulletEnemy6.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy6.bullet_sprite);
             bulletEnemy6.move_bullet(-.3f);
-        }if (bulletEnemy7.allive == 1)
+        }
+        if (bulletEnemy7.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy7.bullet_sprite);
             bulletEnemy7.move_bullet(-.1f);
         }
-        if (bulletEnemy8.allive == 1)
+        if (bulletEnemy8.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy8.bullet_sprite);
             bulletEnemy8.move_bullet(-.2f);
         }
-        if (bulletEnemy9.allive == 1)
+        if (bulletEnemy9.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
             window.draw(bulletEnemy9.bullet_sprite);
             bulletEnemy9.move_bullet(-.3f);
         }
-        if (bulletEnemy10.allive == 1)
+        if (bulletEnemy10.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
         {
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy10.bullet_sprite);
             bulletEnemy10.move_bullet(-.3f);
         }
         //draw MyShip bullet
+
         if (bullet1.allive == 1)
         {
             window.draw(bullet1.bullet_sprite);

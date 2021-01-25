@@ -1,7 +1,14 @@
 # depslib dependency file v1.0
 140737197784064 <<<<<<< HEAD
 
-1610977977 source:/home/msnp1381/Desktop/Cgame/main.cpp
+1611583416 source:/home/msnp1381/Desktop/Cgame/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<chrono>
+	<ctime>
+	<stdlib.h>
+	<time.h>
+	<stdio.h>
 
 1610977977 n
 	<SFML/Graphics.hpp>
