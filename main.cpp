@@ -3,10 +3,10 @@
 #include<iostream>
 #include<chrono>
 #define delay_time 700
-#include<ctime>
+
 #include<stdlib.h>
 #include<time.h>
-#include<stdio.h>
+
 #define enemy_count 30
 
 sf::Sprite build_bullet(sf::Sprite MyShip, sf::Sprite bullet, sf::Sprite empty_temp);
@@ -51,25 +51,32 @@ public:
     }
 };
 
-void bullet_explode(sf::Sprite sp[enemy_count],int bullet_is_alive,sf::Sprite bullet_in,bool EnemyIsAlive[enemy_count])
+void bullet_explode_enemy(sf::Sprite sp[enemy_count],int *bullet_is_alive,sf::Sprite bullet_in,bool EnemyIsAlive[enemy_count])
 {
-    float bulletX=bullet_in.getPosition().x;
-    float bulletY=bullet_in.getPosition().y;
-    if(bullet_is_alive==1)
+    if(*bullet_is_alive==1)
     {
+        float bulletX=bullet_in.getPosition().x;
+        float bulletY=bullet_in.getPosition().y;
+
         for (int i=0; i<enemy_count; i++)
         {
             float EnemyX=sp[i].getPosition().x;
             float EnemyY=sp[i].getPosition().y;
-            if(bulletY>(600+76)||EnemyIsAlive[i]&&(bulletX>EnemyX&&bulletX<EnemyX+enemy_width)&&(bulletY>EnemyY&&bulletY<EnemyY+enemy_height))
+    // std::cout<<"bx: "<<bulletX<<" bY: "<<bulletY<<" eX: "<<EnemyX<<" EY: "<<EnemyY<<" a"<<i<<": "<<EnemyIsAlive[i]<<std::endl;
+            if(EnemyIsAlive[i])
+               if((bulletX>=EnemyX&&bulletX<=EnemyX+enemy_width)&&(bulletY>=EnemyY-enemy_height&&bulletY<=EnemyY))
             {
                 EnemyIsAlive[i]=false;
-                bullet_is_alive=0;
-                sp[i].setColor(sf::Color::Black);
+                *bullet_is_alive=0;
             }
         }
+        if (bulletY<-60)
+            *bullet_is_alive=0;
 
     }
+
+
+
 
 
 }
@@ -138,7 +145,11 @@ int main()
     spriteMyShip.setPosition(375,500);
     spriteMyShip.setOrigin(21.60,0);
     sf::Sprite sprite[enemy_count];
-    bool Enemy_is_alive[enemy_count]= {true};
+
+    bool Enemy_is_alive[enemy_count];
+
+    for(int i=0;i<enemy_count;i++)
+     Enemy_is_alive[i]= {true};
     for(int n=0; n<enemy_count; n++)
     {
         sprite[n].setTexture(texture);
@@ -179,14 +190,15 @@ int main()
     bullet_class bulletEnemy8(bullet_texture_enemy, sprite[rand()%30].getPosition());
     bullet_class bulletEnemy9(bullet_texture_enemy, sprite[rand()%30].getPosition());
     bullet_class bulletEnemy10(bullet_texture_enemy, sprite[rand()%30].getPosition());
+
     //bullet MyShip
     bullet_class bullet1(bullet_texture, position_MyShip);
     bullet_class bullet2(bullet_texture, position_MyShip);
     bullet_class bullet3(bullet_texture, position_MyShip);
 
     auto time_tmp=std::chrono::_V2::high_resolution_clock::now();
-    auto time_tmp1=std::chrono::_V2::high_resolution_clock::now();
     auto time_now=std::chrono::_V2::high_resolution_clock::now();
+    auto time_tmp1=std::chrono::_V2::high_resolution_clock::now();
 
 
     while (window.isOpen())
@@ -294,106 +306,157 @@ int main()
             }
         }
         //creating enemy bullet
-        bulletEnemy1.allive = 1;
-        bulletEnemy2.allive = 1;
-        bulletEnemy3.allive = 1;
-        bulletEnemy4.allive = 1;
-        bulletEnemy5.allive = 1;
-        bulletEnemy6.allive = 1;
-        bulletEnemy7.allive = 1;
-        bulletEnemy8.allive = 1;
-        bulletEnemy9.allive = 1;
-        bulletEnemy10.allive = 1;
+        time_now=std::chrono::_V2::high_resolution_clock::now();
+        //std::cout<<std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()<<"\n";
+        if (bulletEnemy1.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy1.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy2.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy2.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy3.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy3.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy4.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy4.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy5.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy5.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy6.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy6.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy7.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy7.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy8.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy8.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy9.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy9.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
+        if (bulletEnemy10.allive != 1&&std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time)
+        {
+            bulletEnemy10.allive = 1;
+            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
+        }
 
         score.setString("salam");
+
+        bullet_explode_enemy(sprite,&bullet1.allive,bullet1.bullet_sprite,Enemy_is_alive);
+        bullet_explode_enemy(sprite,&bullet2.allive,bullet2.bullet_sprite,Enemy_is_alive);
+        bullet_explode_enemy(sprite,&bullet3.allive,bullet3.bullet_sprite,Enemy_is_alive);
+
+
+
         window.clear();
 
-        time_now=std::chrono::_V2::high_resolution_clock::now();
+
+
+
         //draw enemy bullet
-        if (bulletEnemy1.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy1.allive == 1)
         {
             window.draw(bulletEnemy1.bullet_sprite);
             bulletEnemy1.move_bullet(-.1f);
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
         }
-        if (bulletEnemy2.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy2.allive == 1)
         {
             window.draw(bulletEnemy2.bullet_sprite);
             bulletEnemy2.move_bullet(-.2f);
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
+
         }
-        if (bulletEnemy3.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy3.allive == 1)
         {
             window.draw(bulletEnemy3.bullet_sprite);
             bulletEnemy3.move_bullet(-.3f);
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
-
         }
-        if (bulletEnemy4.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy4.allive == 1)
         {
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy4.bullet_sprite);
             bulletEnemy4.move_bullet(-.1f);
         }
-        if (bulletEnemy5.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy5.allive == 1)
         {
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy5.bullet_sprite);
             bulletEnemy5.move_bullet(-.2f);
         }
-        if (bulletEnemy6.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy6.allive == 1)
         {
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy6.bullet_sprite);
             bulletEnemy6.move_bullet(-.3f);
         }
-        if (bulletEnemy7.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy7.allive == 1)
         {
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy7.bullet_sprite);
             bulletEnemy7.move_bullet(-.1f);
         }
-        if (bulletEnemy8.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy8.allive == 1)
         {
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy8.bullet_sprite);
             bulletEnemy8.move_bullet(-.2f);
         }
-        if (bulletEnemy9.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy9.allive == 1)
         {
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
-
             window.draw(bulletEnemy9.bullet_sprite);
             bulletEnemy9.move_bullet(-.3f);
         }
-        if (bulletEnemy10.allive == 1&&(std::chrono::duration<double,std::milli>(time_now-time_tmp1).count()>=delay_time))
+        if (bulletEnemy10.allive == 1)
         {
-            time_tmp1=std::chrono::_V2::high_resolution_clock::now();
             window.draw(bulletEnemy10.bullet_sprite);
             bulletEnemy10.move_bullet(-.3f);
         }
         //draw MyShip bullet
-
         if (bullet1.allive == 1)
         {
             window.draw(bullet1.bullet_sprite);
-            bullet1.move_bullet(.1f);
+            bullet1.move_bullet(1.5f);
         }
         if (bullet2.allive == 1)
         {
             window.draw(bullet2.bullet_sprite);
-            bullet2.move_bullet(.2f);
+            bullet2.move_bullet(1.5f);
         }
         if (bullet3.allive == 1)
         {
             window.draw(bullet3.bullet_sprite);
-            bullet3.move_bullet(.3f);
+            bullet3.move_bullet(1.5f);
         }
 
         move_enemies(sprite);
         // Draw the textured sprite
-        for (int i=0; i<enemy_count; i++)
-            window.draw(sprite[i]);
+        for (int i=0; i<enemy_count; i++){
+            if (Enemy_is_alive[i])
+            window.draw(sprite[i]);}
+
         window.draw(spriteMyShip);
         window.draw(score);
         window.display();
