@@ -20,7 +20,14 @@ int allive_bullet = 0 ;
 #define enemy_movment_speed .12f
 #define enemy_width 64
 #define enemy_height 192
+
+#define ship_width 64
+#define ship_height 192
+
+#define bullet_height 20
+#define bullet_width 38
 #define enemy_layout_boundary 28
+
 short ship_direction = 1;
 
 
@@ -51,6 +58,34 @@ public:
     }
 };
 
+bool collision(sf::Sprite ship,sf::Sprite bullet)
+{
+    float X,Y,W=enemy_width,H=enemy_height,x,y,w=bullet_width,h=bullet_height;
+    x=bullet.getPosition().x
+      ;
+    y=bullet.getPosition().y
+      ;
+    X=ship.getPosition().x
+      ;
+    Y=ship.getPosition().y
+      ;
+    if((x>=X&&x<=X+W)&&(y>=Y-H&&y<=Y))
+        return true;
+    x=x+w;
+    if((x>=X&&x<=X+W)&&(y>=Y-H&&y<=Y))
+        return true;
+    y=y+w;
+    if((x>=X&&x<=X+W)&&(y>=Y-H&&y<=Y))
+        return true;
+    x=x-w;
+    if((x>=X&&x<=X+W)&&(y>=Y-H&&y<=Y))
+        return true;
+    return false;
+
+
+
+}
+
 void bullet_explode_enemy(sf::Sprite sp[enemy_count],int *bullet_is_alive,sf::Sprite bullet_in,bool EnemyIsAlive[enemy_count])
 {
     if(*bullet_is_alive==1)
@@ -62,13 +97,13 @@ void bullet_explode_enemy(sf::Sprite sp[enemy_count],int *bullet_is_alive,sf::Sp
         {
             float EnemyX=sp[i].getPosition().x;
             float EnemyY=sp[i].getPosition().y;
-    // std::cout<<"bx: "<<bulletX<<" bY: "<<bulletY<<" eX: "<<EnemyX<<" EY: "<<EnemyY<<" a"<<i<<": "<<EnemyIsAlive[i]<<std::endl;
+            // std::cout<<"bx: "<<bulletX<<" bY: "<<bulletY<<" eX: "<<EnemyX<<" EY: "<<EnemyY<<" a"<<i<<": "<<EnemyIsAlive[i]<<std::endl;
             if(EnemyIsAlive[i])
-               if((bulletX>=EnemyX&&bulletX<=EnemyX+enemy_width)&&(bulletY>=EnemyY-enemy_height&&bulletY<=EnemyY))
-            {
-                EnemyIsAlive[i]=false;
-                *bullet_is_alive=0;
-            }
+                if(collision(sp[i],bullet_in))
+                {
+                    EnemyIsAlive[i]=false;
+                    *bullet_is_alive=0;
+                }
         }
         if (bulletY<-60)
             *bullet_is_alive=0;
@@ -79,7 +114,12 @@ void bullet_explode_enemy(sf::Sprite sp[enemy_count],int *bullet_is_alive,sf::Sp
 
 
 
+
 }
+
+
+
+
 
 void move_enemies(sf::Sprite s[enemy_count])
 {
@@ -113,17 +153,17 @@ void move_enemies(sf::Sprite s[enemy_count])
     }
 }
 
-/*char title_init (bool enemy_is_alive[enemy_count],int bullet_count)
+void  title_init ( char s[], bool enemy_is_alive[enemy_count],int bullet_count)
 {
     int enemy_score=0;
     for(int i =0;i<enemy_count;i++)
-        if (!enemy_is_alive[enemy_count])
-        enemy_score++;
-    char c[800/15];
-    char scrtmp[]="Score : "
-    char reloading="Reloading"
- char c=("%s",scrtmp);
-}*/
+ {
+
+     if (!enemy_is_alive[enemy_count])
+        {enemy_score++;}
+}
+ sprintf(s,"Score : %d      shot : %d       lives : %d",enemy_score,bullet_count,45);
+}
 
 int main()
 {
@@ -148,8 +188,8 @@ int main()
 
     bool Enemy_is_alive[enemy_count];
 
-    for(int i=0;i<enemy_count;i++)
-     Enemy_is_alive[i]= {true};
+    for(int i=0; i<enemy_count; i++)
+        Enemy_is_alive[i]= {true};
     for(int n=0; n<enemy_count; n++)
     {
         sprite[n].setTexture(texture);
@@ -368,8 +408,9 @@ int main()
             time_tmp1=std::chrono::_V2::high_resolution_clock::now();
 
         }
-
-        score.setString("salam");
+char title[500];
+title_init(title,Enemy_is_alive,5);
+        score.setString(title);
 
         bullet_explode_enemy(sprite,&bullet1.allive,bullet1.bullet_sprite,Enemy_is_alive);
         bullet_explode_enemy(sprite,&bullet2.allive,bullet2.bullet_sprite,Enemy_is_alive);
@@ -453,9 +494,11 @@ int main()
 
         move_enemies(sprite);
         // Draw the textured sprite
-        for (int i=0; i<enemy_count; i++){
+        for (int i=0; i<enemy_count; i++)
+        {
             if (Enemy_is_alive[i])
-            window.draw(sprite[i]);}
+                window.draw(sprite[i]);
+        }
 
         window.draw(spriteMyShip);
         window.draw(score);
