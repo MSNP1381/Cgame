@@ -153,15 +153,21 @@ void move_enemies(sf::Sprite s[enemy_count])
     }
 }
 
-void  title_init ( char s[], bool enemy_is_alive[enemy_count],int bullet_count)
+void  title_init ( char s[], bool enemy_is_alive1[],int bullet_count)
 {
     int enemy_score=0;
     for(int i =0;i<enemy_count;i++)
  {
 
-     if (!enemy_is_alive[enemy_count])
-        {enemy_score++;}
+     if (enemy_is_alive1[i]==false)
+        {enemy_score++;
+
+
+        }
+
 }
+
+        std::cout<<enemy_score<<std::endl;
  sprintf(s,"Score : %d      shot : %d       lives : %d",enemy_score,bullet_count,45);
 }
 
