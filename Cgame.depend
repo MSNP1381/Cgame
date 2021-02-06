@@ -1,0 +1,68 @@
+# depslib dependency file v1.0
+140737197784064 <<<<<<< HEAD
+
+1612464143 source:/home/msnp1381/Desktop/Cgame/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<chrono>
+	<stdlib.h>
+	<time.h>
+
+1610977977 n
+	<SFML/Graphics.hpp>
+	<iostream>
+	<chrono>
+
+1610805753 D
+
+1611321822 source:/home/ali208040i/CGame/Cgame/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	<chrono>
+	<ctime>
+	<stdlib.h>
+	<time.h>
+	<stdio.h>
+
+1610883016 dd7427fc94965b8cb7b2d73c64476629bf5e0
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1610986076 source:/home/msnp1381/Desktop/ce/Cgame/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1612521575 source:/home/ali208040i/Desktop/Cgame-main/main.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<iostream>
+	<chrono>
+	<stdlib.h>
+	<time.h>
+
+1612597747 source:/home/msnp1381/Desktop/sa/Cgame-main/main.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<iostream>
+	<chrono>
+	<fstream>
+	<stdlib.h>
+	<time.h>
+
+1612529445 source:/home/ali208040i/CGame/Cgame-main/main.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<iostream>
+	<chrono>
+	<stdlib.h>
+	<time.h>
+
+1612599084 source:/home/ali208040i/final/s/Cgame-main/main.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<iostream>
+	<chrono>
+	<fstream>
+	<stdlib.h>
+	<time.h>
+
